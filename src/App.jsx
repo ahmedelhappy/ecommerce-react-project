@@ -8,8 +8,8 @@ function App() {
   return (
     <Routes>
       <Route index element={<HomePage />} />
-      <Route path="checkout" element={<CheckoutPage />} />
       <Route path="orders" element={<OrdersPage />} />
+      <Route path="checkout" element={<CheckoutPage />} />
     </Routes>
   );
 }

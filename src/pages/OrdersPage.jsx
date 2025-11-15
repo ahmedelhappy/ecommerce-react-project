@@ -5,6 +5,8 @@ export function OrdersPage() {
     <>
       <title>Orders</title>
 
+      <link rel="icon" href="images/icons/orders-favicon.png" />
+
       <Header />
 
       <div className="orders-page">
