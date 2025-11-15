@@ -1,4 +1,3 @@
-import { Link } from 'react-router';
 import { NavLink } from 'react-router';
 import './header.css';
 
