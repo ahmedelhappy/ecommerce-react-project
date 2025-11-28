@@ -14,6 +14,7 @@ function App() {
   useEffect(() => {
     axios.get("/api/cart-items?expand=product").then((response) => {
       setCart(response.data);
+      console.log(response.data)
     });
   }, []);
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Header } from "../components/header";
+import { Header } from "../components/Header";
 import { formatMoney } from "../utils/money";
 import CheckmarkIcon from "../assets/images/icons/checkmark.png";
 import "./HomePage.css";
