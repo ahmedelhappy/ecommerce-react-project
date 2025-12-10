@@ -8,12 +8,12 @@ export function HomePage({ cart }) {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get("/api/products").then((response) => {
+    const fetchHomeData = async function () {
+      const response = await axios.get("/api/products");
       setProducts(response.data);
-    });
-
+    };
+    fetchHomeData();
   }, []);
-
 
   return (
     <>
@@ -21,7 +21,7 @@ export function HomePage({ cart }) {
 
       <link rel="icon" href="images/icons/home-favicon.png" />
 
-      <Header cart={cart}/>
+      <Header cart={cart} />
 
       <div className="home-page">
         <ProductGrid products={products} />
