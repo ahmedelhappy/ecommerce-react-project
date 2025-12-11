@@ -23,13 +23,13 @@ export function TrackingPage({ cart }) {
     return orderProduct.productId === productId;
   });
 
-  let totalDeliveryTimeMs =
-    orderProduct.estimatedDeliveryTimeMs - order.orderTimeMs;
+  let totalDeliveryTimeMs = 
+    orderProduct.estimatedDeliveryTimeMs - order.orderTimeMs;        
   let timePassedMs = dayjs().valueOf() - order.orderTimeMs;
   timePassedMs = totalDeliveryTimeMs * 0.3;
   let deliveryPercent = (timePassedMs / totalDeliveryTimeMs) * 100;
   if (deliveryPercent >= 100) deliveryPercent = 100;
-
+  if (isNaN(deliveryPercent)) deliveryPercent = 0;
 
   const isPreparing = deliveryPercent < 33;
   const isShipped = deliveryPercent >= 33 && deliveryPercent < 100;
