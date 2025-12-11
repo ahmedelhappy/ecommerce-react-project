@@ -6,7 +6,7 @@ export function OrderDetailsGrid({ order, BuyAgainIcon }) {
     <div className="order-details-grid">
       {order.products.map((product) => {
         return (
-          <Fragment key={product.id}>
+          <Fragment key={product.productId}>
             <div className="product-image-container">
               <img src={product.product.image} />
             </div>
@@ -27,10 +27,11 @@ export function OrderDetailsGrid({ order, BuyAgainIcon }) {
             </div>
 
             <div className="product-actions">
-              <a href="/tracking">
+              <a href={`/tracking/${order.id}/${product.productId}`}>
                 <button className="track-package-button button-secondary">
                   Track package
                 </button>
+                {console.log(product.productId)}
               </a>
             </div>
           </Fragment>
