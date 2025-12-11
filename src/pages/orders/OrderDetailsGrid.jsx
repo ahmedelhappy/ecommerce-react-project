@@ -31,7 +31,6 @@ export function OrderDetailsGrid({ order, BuyAgainIcon }) {
                 <button className="track-package-button button-secondary">
                   Track package
                 </button>
-                {console.log(product.productId)}
               </a>
             </div>
           </Fragment>
