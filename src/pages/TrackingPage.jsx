@@ -23,6 +23,13 @@ export function TrackingPage({ cart }) {
     return orderProduct.productId === productId;
   });
 
+  let totalDeliveryTimeMs =
+    orderProduct.estimatedDeliveryTimeMs - order.orderTimeMs;
+  let timePassedMs = dayjs().valueOf() - order.orderTimeMs;
+  timePassedMs = totalDeliveryTimeMs * 0.3;
+  let deliveryPercent = (timePassedMs / totalDeliveryTimeMs) * 100;
+  if (deliveryPercent >= 100) deliveryPercent = 100;
+
   return (
     <>
       <title>Tracking</title>
@@ -38,19 +45,16 @@ export function TrackingPage({ cart }) {
           </Link>
 
           <div className="delivery-date">
-            Arriving on {dayjs(orderProduct.estimatedDeliveryTimeMs).format("dddd, MMMM D")}
+            {deliveryPercent >= 100 ? "Delivered on" : "Arriving on"}
+            {" "}
+            {dayjs(orderProduct.estimatedDeliveryTimeMs).format("dddd, MMMM D")}
           </div>
 
-          <div className="product-info">
-            {orderProduct.product.name}
-          </div>
+          <div className="product-info">{orderProduct.product.name}</div>
 
           <div className="product-info">Quantity: {orderProduct.quantity}</div>
 
-          <img
-            className="product-image"
-            src={orderProduct.product.image}
-          />
+          <img className="product-image" src={orderProduct.product.image} />
 
           <div className="progress-labels-container">
             <div className="progress-label">Preparing</div>
@@ -59,7 +63,10 @@ export function TrackingPage({ cart }) {
           </div>
 
           <div className="progress-bar-container">
-            <div className="progress-bar"></div>
+            <div
+              className="progress-bar"
+              style={{ width: `${deliveryPercent}%` }}
+            ></div>
           </div>
         </div>
       </div>
