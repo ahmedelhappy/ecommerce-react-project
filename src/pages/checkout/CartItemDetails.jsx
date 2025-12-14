@@ -4,6 +4,7 @@ import { useState } from "react";
 
 export function CartItemDetails({ cartItem, loadCart }) {
   const [isUpdatingQuantity, setIsUpdatingQuantity] = useState(false);
+  const [newQuantity, setNewQuantity] = useState(1);
 
   const deleteCartItem = async () => {
     await axios.delete(`/api/cart-items/${cartItem.productId}`);
@@ -15,6 +16,16 @@ export function CartItemDetails({ cartItem, loadCart }) {
       ? setIsUpdatingQuantity(false)
       : setIsUpdatingQuantity(true);
   };
+
+  const changeQuantity = (event) => {
+    setNewQuantity(event.target.value);
+  };
+
+  // const sendNewQuantity = async() => {
+  //   // send it
+  //   await axios.put
+  //   // show it 
+  // }
 
   return (
     <>
@@ -29,7 +40,12 @@ export function CartItemDetails({ cartItem, loadCart }) {
           <span>
             Quantity:{" "}
             {isUpdatingQuantity ? (
-              <input type="text" className="quantity-textbox" />
+              <input
+                type="text"
+                className="quantity-textbox"
+                onChange={changeQuantity}
+                value={newQuantity}
+              />
             ) : (
               <span className="quantity-label">{cartItem.quantity}</span>
             )}
