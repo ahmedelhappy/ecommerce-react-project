@@ -27,11 +27,14 @@ export function CartItemDetails({ cartItem, loadCart }) {
     setNewQuantity(event.target.value);
   };
 
-  // const sendNewQuantity = async() => {
-  //   // send it
-  //   await axios.put
-  //   // show it
-  // }
+  const handleQuantityKeyDown  = (event) => {
+    if (event.key === "Enter") {
+      updateQuantity();
+    } else if (event.key === "Escape") {
+      setNewQuantity(cartItem.quantity);
+      setIsUpdatingQuantity(false);
+    }
+  };
 
   return (
     <>
@@ -50,8 +53,7 @@ export function CartItemDetails({ cartItem, loadCart }) {
                 type="text"
                 className="quantity-textbox"
                 onChange={changeQuantity}
-                onBlur={updateQuantity}
-                onKeyDown={(event)=> {if(event.key === "Enter") {updateQuantity()}} }
+                onKeyDown={handleQuantityKeyDown }
                 value={newQuantity}
               />
             ) : (
