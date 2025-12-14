@@ -4,17 +4,23 @@ import { useState } from "react";
 
 export function CartItemDetails({ cartItem, loadCart }) {
   const [isUpdatingQuantity, setIsUpdatingQuantity] = useState(false);
-  const [newQuantity, setNewQuantity] = useState(1);
+  const [newQuantity, setNewQuantity] = useState(cartItem.quantity);
 
   const deleteCartItem = async () => {
     await axios.delete(`/api/cart-items/${cartItem.productId}`);
     await loadCart();
   };
 
-  const updateQuantity = () => {
-    isUpdatingQuantity
-      ? setIsUpdatingQuantity(false)
-      : setIsUpdatingQuantity(true);
+  const updateQuantity = async () => {
+    if (isUpdatingQuantity) {
+      setIsUpdatingQuantity(false);
+      await axios.put(`/api/cart-items/${cartItem.productId}`, {
+        quantity: Number(newQuantity),
+      });
+      await loadCart();
+    } else {
+      setIsUpdatingQuantity(true);
+    }
   };
 
   const changeQuantity = (event) => {
@@ -24,7 +30,7 @@ export function CartItemDetails({ cartItem, loadCart }) {
   // const sendNewQuantity = async() => {
   //   // send it
   //   await axios.put
-  //   // show it 
+  //   // show it
   // }
 
   return (
@@ -44,6 +50,8 @@ export function CartItemDetails({ cartItem, loadCart }) {
                 type="text"
                 className="quantity-textbox"
                 onChange={changeQuantity}
+                onBlur={updateQuantity}
+                onKeyDown={(event)=> {if(event.key === "Enter") {updateQuantity()}} }
                 value={newQuantity}
               />
             ) : (
