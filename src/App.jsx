@@ -20,6 +20,8 @@ function App() {
     loadCart();
   }, []);
 
+  window.axios = axios; // Makes axios accessible in the console.
+
   return (
     <Routes>
       <Route index element={<HomePage cart={cart} loadCart={loadCart} />} />
