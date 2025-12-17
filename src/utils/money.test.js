@@ -1,4 +1,4 @@
-import { it, expect, describe } from "vitest";
+import { describe, it, expect } from "vitest";
 import { formatMoney } from "./money";
 
 describe("formatMoney", () => {
@@ -10,4 +10,8 @@ describe("formatMoney", () => {
     expect(formatMoney(1090)).toBe("$10.90");
     expect(formatMoney(100)).toBe("$1.00");
   });
+
+  it("formats 0 as $0.00", () => {
+    expect(formatMoney(0)).toBe("$0.00");
+  })
 });
